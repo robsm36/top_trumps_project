@@ -109,7 +109,6 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-        <button type="button" onClick={ this.checkTrunfo }>aa</button>
       </div>
     );
   }
