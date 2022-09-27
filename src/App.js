@@ -16,25 +16,34 @@ class App extends React.Component {
     cardAttr3: '0',
     cardImage: '',
     cardRare: 'normal',
-    savedCarts: [],
+    savedCards: [],
     cardTrunfo: false,
     isSaveButtonDisabled: true,
+    hasTrunfo: false,
   };
 
   onInputChange = ({ target }) => {
     const { name, value, checked } = target;
     const Value = name === 'cardTrunfo' ? checked : value;
     this.setState({ [name]: Value }, () => this.checkSaveButton());
-    // this.checkSaveButton();
   };
 
   resetState = () => {
     this.setState(this.initialState);
   };
 
+  checkTrunfo = () => {
+    const { savedCards } = this.state;
+    savedCards.forEach((card) => {
+      if (card.cardTrunfo === true) {
+        this.setState({ hasTrunfo: true });
+      }
+    });
+  };
+
   onSaveButtonClick = () => {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
-      cardAttr3, cardImage, cardRare, cardTrunfo, savedCarts } = this.state;
+      cardAttr3, cardImage, cardRare, cardTrunfo, savedCards } = this.state;
     const cardToSave = {
       cardName,
       cardDescription,
@@ -45,8 +54,11 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
     };
-    savedCarts.push(cardToSave);
-    this.setState({ savedCarts }, () => this.resetState());
+    savedCards.push(cardToSave);
+    this.setState({ savedCards }, () => {
+      this.resetState();
+      this.checkTrunfo();
+    });
   };
 
   checkSaveButton = () => {
@@ -67,7 +79,8 @@ class App extends React.Component {
 
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
-      cardAttr3, cardImage, cardRare, cardTrunfo, isSaveButtonDisabled } = this.state;
+      cardAttr3, cardImage, cardRare, cardTrunfo,
+      isSaveButtonDisabled, hasTrunfo } = this.state;
 
     return (
       <div>
@@ -84,6 +97,7 @@ class App extends React.Component {
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onSaveButtonClick={ this.onSaveButtonClick }
+          hasTrunfo={ hasTrunfo }
         />
         <Card
           cardName={ cardName }
@@ -95,6 +109,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        <button type="button" onClick={ this.checkTrunfo }>aa</button>
       </div>
     );
   }

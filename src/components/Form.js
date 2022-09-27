@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class Form extends React.Component {
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
-      cardRare, cardTrunfo, isSaveButtonDisabled,
+      cardRare, cardTrunfo, hasTrunfo, isSaveButtonDisabled,
       onInputChange, onSaveButtonClick } = this.props;
     return (
       <form>
@@ -96,17 +96,20 @@ class Form extends React.Component {
             <option key="veryrare">muito raro</option>
           </select>
         </label>
-        <label htmlFor="trump">
-          Super Trunfo
-          <input
-            checked={ cardTrunfo }
-            id="trump"
-            name="cardTrunfo"
-            type="checkbox"
-            data-testid="trunfo-input"
-            onChange={ onInputChange }
-          />
-        </label>
+        {
+          hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p>
+            : <label htmlFor="trump">
+              Super Trunfo
+              <input
+                checked={ cardTrunfo }
+                id="trump"
+                name="cardTrunfo"
+                type="checkbox"
+                data-testid="trunfo-input"
+                onChange={ onInputChange }
+              />
+            </label>
+        }
         <button
           onClick={ onSaveButtonClick }
           disabled={ isSaveButtonDisabled }
@@ -130,6 +133,7 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
   //   hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
