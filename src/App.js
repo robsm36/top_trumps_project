@@ -3,14 +3,20 @@ import Form from './components/Form';
 import Card from './components/Card';
 
 class App extends React.Component {
+  constructor() {
+    super();
+    this.initialState = { ...this.state };
+  }
+
   state = {
     cardName: '',
     cardDescription: '',
-    cardAttr1: '',
-    cardAttr2: '',
-    cardAttr3: '',
+    cardAttr1: '0',
+    cardAttr2: '0',
+    cardAttr3: '0',
     cardImage: '',
     cardRare: 'normal',
+    savedCarts: [],
     cardTrunfo: false,
     isSaveButtonDisabled: true,
   };
@@ -22,8 +28,25 @@ class App extends React.Component {
     // this.checkSaveButton();
   };
 
-  onSaveButtonClick = () => {
+  resetState = () => {
+    this.setState(this.initialState);
+  };
 
+  onSaveButtonClick = () => {
+    const { cardName, cardDescription, cardAttr1, cardAttr2,
+      cardAttr3, cardImage, cardRare, cardTrunfo, savedCarts } = this.state;
+    const cardToSave = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+    savedCarts.push(cardToSave);
+    this.setState({ savedCarts }, () => this.resetState());
   };
 
   checkSaveButton = () => {
