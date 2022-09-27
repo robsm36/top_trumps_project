@@ -34,6 +34,9 @@ class Form extends React.Component {
         Atributo 1
         <label htmlFor="atr1">
           <input
+            pattern="[0-9]"
+            min={ 0 }
+            max={ 90 }
             value={ cardAttr1 }
             name="cardAttr1"
             id="atr1"
@@ -45,6 +48,8 @@ class Form extends React.Component {
         Atributo 2
         <label htmlFor="atr2">
           <input
+            min={ 0 }
+            max={ 90 }
             value={ cardAttr2 }
             name="cardAttr2"
             id="atr2"
@@ -56,6 +61,8 @@ class Form extends React.Component {
         Atributo 3
         <label htmlFor="atr3">
           <input
+            min={ 0 }
+            max={ 90 }
             value={ cardAttr3 }
             name="cardAttr3"
             id="atr3"
