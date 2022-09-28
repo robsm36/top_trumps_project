@@ -4,7 +4,19 @@ import PropTypes from 'prop-types';
 class Card extends React.Component {
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
-      cardRare, cardTrunfo } = this.props;
+      cardRare, cardTrunfo, createButton, onDelete } = this.props;
+
+    const delButton = (
+      <button
+        name={ cardName }
+        data-testid="delete-button"
+        type="button"
+        onClick={ onDelete }
+        value="Excluir"
+      >
+        Excluir
+      </button>);
+
     return (
       <div>
         <p data-testid="name-card">{cardName}</p>
@@ -20,6 +32,7 @@ class Card extends React.Component {
         <p data-testid="rare-card">{cardRare}</p>
         <div />
         {cardTrunfo && <p data-testid="trunfo-card">Super Trunfo</p>}
+        {createButton && delButton }
       </div>
     );
   }
@@ -34,6 +47,8 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  createButton: PropTypes.bool.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default Card;

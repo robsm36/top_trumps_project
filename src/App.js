@@ -29,16 +29,30 @@ class App extends React.Component {
   };
 
   resetState = () => {
-    this.setState(this.initialState);
+    const { savedCards } = this.state;
+    this.setState(this.initialState, () => {
+      this.setState({ savedCards });
+    });
   };
 
   checkTrunfo = () => {
     const { savedCards } = this.state;
+    this.setState({ hasTrunfo: false });
     savedCards.forEach((card) => {
       if (card.cardTrunfo === true) {
         this.setState({ hasTrunfo: true });
       }
     });
+  };
+
+  onDelete = ({ target }) => {
+    const { name } = target;
+    let { savedCards } = this.state;
+    console.log(savedCards);
+    savedCards = savedCards.filter((card) => card.cardName !== name);
+    console.log(savedCards);
+    this.setState({ savedCards }, () => this.checkTrunfo());
+    console.log(savedCards);
   };
 
   onSaveButtonClick = () => {
@@ -54,11 +68,15 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
     };
+    console.log(cardToSave);
     savedCards.push(cardToSave);
+    console.log(savedCards);
+    console.log(this.initialState);
     this.setState({ savedCards }, () => {
       this.resetState();
       this.checkTrunfo();
     });
+    console.log(savedCards);
   };
 
   checkSaveButton = () => {
@@ -108,6 +126,8 @@ class App extends React.Component {
           cardImage={ cardImage }
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
+          createButton={ false }
+          onDelete={ this.onDelete }
         />
         {
           savedCards.map((card) => (<Card
@@ -120,6 +140,8 @@ class App extends React.Component {
             cardImage={ card.cardImage }
             cardRare={ card.cardRare }
             cardTrunfo={ card.cardTrunfo }
+            createButton
+            onDelete={ this.onDelete }
           />))
         }
       </div>
