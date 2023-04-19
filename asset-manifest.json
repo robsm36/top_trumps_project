@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/app-toot-name/static/css/main.aba20033.css",
-    "main.js": "/app-toot-name/static/js/main.99f0c020.js",
-    "index.html": "/app-toot-name/index.html",
-    "main.aba20033.css.map": "/app-toot-name/static/css/main.aba20033.css.map",
-    "main.99f0c020.js.map": "/app-toot-name/static/js/main.99f0c020.js.map"
+    "main.css": "/top_trumps_project/static/css/main.aba20033.css",
+    "main.js": "/top_trumps_project/static/js/main.99f0c020.js",
+    "index.html": "/top_trumps_project/index.html",
+    "main.aba20033.css.map": "/top_trumps_project/static/css/main.aba20033.css.map",
+    "main.99f0c020.js.map": "/top_trumps_project/static/js/main.99f0c020.js.map"
   },
   "entrypoints": [
     "static/css/main.aba20033.css",
