@@ -1,5 +1,7 @@
-import React from 'react';
+/* eslint-disable max-len */
 import PropTypes from 'prop-types';
+import React from 'react';
+import style from '../card.module.css';
 
 class Card extends React.Component {
   render() {
@@ -18,21 +20,28 @@ class Card extends React.Component {
       </button>);
 
     return (
-      <div>
-        <p data-testid="name-card">{cardName}</p>
-        <img
-          data-testid="image-card"
-          src={ cardImage }
-          alt={ cardName }
-        />
-        <p data-testid="description-card">{cardDescription}</p>
-        <p data-testid="attr1-card">{cardAttr1}</p>
-        <p data-testid="attr2-card">{cardAttr2}</p>
-        <p data-testid="attr3-card">{cardAttr3}</p>
-        <p data-testid="rare-card">{cardRare}</p>
-        <div />
-        {cardTrunfo && <p data-testid="trunfo-card">Super Trunfo</p>}
-        {createButton && delButton }
+      <div className={ style.cardcontainer }>
+        <div className={ style.nft }>
+          <div className={ style.main }>
+            <img
+              className={ style.tokenImage }
+              data-testid="image-card"
+              src={ cardImage }
+              alt=""
+            />
+            <h2 data-testid="name-card">{cardName}</h2>
+            <p className={ style.description } data-testid="description-card">{cardDescription}</p>
+            <div className={ style.tokenInfo }>
+              {cardTrunfo && <p data-testid="trunfo-card">Super Trunfo</p>}
+              <p className={ style.price } data-testid="attr1-card">{cardAttr1}</p>
+              <p className={ style.price } data-testid="attr2-card">{cardAttr2}</p>
+              <p className={ style.price } data-testid="attr3-card">{cardAttr3}</p>
+              <p className={ style.duration } data-testid="rare-card">{cardRare}</p>
+            </div>
+            <div />
+            {createButton && delButton }
+          </div>
+        </div>
       </div>
     );
   }

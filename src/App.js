@@ -1,6 +1,9 @@
 import React from 'react';
-import Form from './components/Form';
+import style from './card.module.css';
 import Card from './components/Card';
+import Form from './components/Form';
+import Instructions from './components/Instructions';
+import SavedCard from './components/SavedCard';
 
 class App extends React.Component {
   constructor() {
@@ -48,11 +51,8 @@ class App extends React.Component {
   onDelete = ({ target }) => {
     const { name } = target;
     let { savedCards } = this.state;
-    console.log(savedCards);
     savedCards = savedCards.filter((card) => card.cardName !== name);
-    console.log(savedCards);
     this.setState({ savedCards }, () => this.checkTrunfo());
-    console.log(savedCards);
   };
 
   onSaveButtonClick = () => {
@@ -68,15 +68,11 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
     };
-    console.log(cardToSave);
     savedCards.push(cardToSave);
-    console.log(savedCards);
-    console.log(this.initialState);
     this.setState({ savedCards }, () => {
       this.resetState();
       this.checkTrunfo();
     });
-    console.log(savedCards);
   };
 
   checkSaveButton = () => {
@@ -101,49 +97,53 @@ class App extends React.Component {
       isSaveButtonDisabled, hasTrunfo, savedCards } = this.state;
 
     return (
-      <div>
-        <h1>Tryunfo</h1>
-        <Form
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          onInputChange={ this.onInputChange }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
-          onSaveButtonClick={ this.onSaveButtonClick }
-          hasTrunfo={ hasTrunfo }
-        />
-        <Card
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          createButton={ false }
-          onDelete={ this.onDelete }
-        />
-        {
-          savedCards.map((card) => (<Card
-            key={ card.cardName }
-            cardName={ card.cardName }
-            cardDescription={ card.cardDescription }
-            cardAttr1={ card.cardAttr1 }
-            cardAttr2={ card.cardAttr2 }
-            cardAttr3={ card.cardAttr3 }
-            cardImage={ card.cardImage }
-            cardRare={ card.cardRare }
-            cardTrunfo={ card.cardTrunfo }
-            createButton
+      <div className={ style.box }>
+        <div className={ style.standard }>
+          <Form
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            onInputChange={ this.onInputChange }
+            isSaveButtonDisabled={ isSaveButtonDisabled }
+            onSaveButtonClick={ this.onSaveButtonClick }
+            hasTrunfo={ hasTrunfo }
+          />
+          <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            createButton={ false }
             onDelete={ this.onDelete }
-          />))
-        }
+          />
+          <Instructions />
+        </div>
+        <div className={ style.savedcontainer }>
+          {
+            savedCards.map((card) => (<SavedCard
+              key={ card.cardName }
+              cardName={ card.cardName }
+              cardDescription={ card.cardDescription }
+              cardAttr1={ card.cardAttr1 }
+              cardAttr2={ card.cardAttr2 }
+              cardAttr3={ card.cardAttr3 }
+              cardImage={ card.cardImage }
+              cardRare={ card.cardRare }
+              cardTrunfo={ card.cardTrunfo }
+              createButton
+              onDelete={ this.onDelete }
+            />))
+          }
+        </div>
       </div>
     );
   }
